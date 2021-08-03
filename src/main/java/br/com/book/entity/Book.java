@@ -1,14 +1,23 @@
 package br.com.book.entity;
 
+import lombok.*;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity(name = "book")
 @Table(name = "book")
+@Getter
+@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotBlank
     @Column(name = "name")
     private String name;
 
