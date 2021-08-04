@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,11 +36,26 @@ public class BookController {
     @PostMapping("book/form/save")
     public String saveBook(@Valid Book book, BindingResult result, RedirectAttributes redirect) {
         if (result.hasErrors()) {
-            redirect.addFlashAttribute("mensagem","Verifique os campos obrigatórios");
+            redirect.addFlashAttribute("mensagem", "Verifique os campos obrigatórios");
             return "/book/form/add";
         }
 
         this.bookService.save(book);
-        return "list";
+        //return "list";
+        return "redirect:/";
     }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView getEdit(@PathVariable() Long id) {
+        ModelAndView mv = new ModelAndView("");
+        List<Author> authorList = this.authorService.getAuthorList();
+        mv.addObject("authorlist", authorList);
+
+        Book book=this.bookService.findById(id);
+
+        mv.addObject("book", book);
+
+        return mv;
+    }
+
 }
