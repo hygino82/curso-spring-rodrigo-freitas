@@ -8,13 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Table(name = "book")
 @Entity(name = "book")
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Book {
 	
@@ -22,6 +25,7 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 
+	@NotBlank
 	@Column(name = "name")
 	private String name;
 
