@@ -20,31 +20,35 @@ import br.com.book.service.BookService;
 @Controller
 public class BookController {
 
-	@Autowired
-	private AuthorService authorService;
-	
-	@Autowired
-	private BookService bookService;
+    @Autowired
+    private AuthorService authorService;
 
-	@GetMapping("/book/form/add")
-	public ModelAndView getFormAdd() {
-		ModelAndView mv = new ModelAndView("bookform");
-		List<Author> authorList = this.authorService.getAuthorList();
-		mv.addObject("authorlist", authorList);
-		return mv;
-	}
-	
-	@PostMapping("/book/form/save")
-	public String saveBook(@Valid Book book,
-			BindingResult result,
-			RedirectAttributes redirect) {
-		if(result.hasErrors()) {
-			redirect.addFlashAttribute("mensagem","verifique os campos obrigatórios");
-			return "redirect:/book/form/add";
-		}
-		this.bookService.save(book);
-		
-		return "redirect:/lista";
-	}
+    @Autowired
+    private BookService bookService;
+
+    @GetMapping("/book/form/add")
+    public ModelAndView getFormAdd() {
+
+        ModelAndView mv = new ModelAndView("bookform");
+        List<Author> authorList = this.authorService.getAuthorList();
+        mv.addObject("authorList", authorList);
+        return mv;
+    }
+
+    @PostMapping("/book/form/save")
+    public String saveBook(@Valid Book book, BindingResult result,
+                           RedirectAttributes redirect) {
+
+        if (result.hasErrors()) {
+            redirect.addFlashAttribute("mensagem",
+                    "Verifique os campos obrigatórios");
+            return "redirect:/book/form/add";
+        }
+
+        this.bookService.save(book);
+
+        return "redirect:/";
+    }
+
 }
 
