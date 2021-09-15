@@ -17,12 +17,13 @@ public class BookService {
 		this.bookRepository.save(book);
 	}
 
-	public List<Book> findAll() {		
+	public List<Book> findAll() {
 		return this.bookRepository.findAll();
 	}
 
-//	public List<Book> findAll() {
-//
-//		return this.bookRepository.findAll();
-//	}
+	public Book findById(Long id) {
+
+		return this.bookRepository.findById(id).get();
+	}
+
 }
